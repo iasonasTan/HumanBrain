@@ -12,21 +12,9 @@ public abstract class Memory {
         this.value = value;
     }
 
-    public long weight() {
-        return weight;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    public void learnBetter() {
-        weight++;
-    }
-
     @Override
     public String toString() {
-        return value;
+        return value+":"+weight;
     }
 
     public abstract List<Problem> useCases();

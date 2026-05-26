@@ -44,9 +44,11 @@ public class Main {
 
         Optional<Memory> memoryOptional = brain.get(new Problem(List.of("language", "programming", "favourite")));
         memoryOptional.ifPresent(IO::println);
+        IO.println();
 
         memoryOptional = brain.get(new Problem(List.of("friend", "house")));
         memoryOptional.ifPresent(IO::println);
+        IO.println();
 
         memoryOptional = brain.get(new Problem(List.of("house")));
         if(memoryOptional.isPresent()) {
@@ -54,6 +56,19 @@ public class Main {
         } else {
             IO.println("IDK!");
         }
+        IO.println();
+
+        memoryOptional = brain.get(new Problem(List.of("friend", "house")));
+        memoryOptional.ifPresent(IO::println);
+        IO.println();
+
+        memoryOptional = brain.get(new Problem(List.of("friend", "house")));
+        memoryOptional.ifPresent(IO::println);
+        IO.println();
+
+        memoryOptional = brain.get(new Problem(List.of("language", "programming", "favourite")));
+        memoryOptional.ifPresent(IO::println);
+        IO.println();
     }
 
 }
