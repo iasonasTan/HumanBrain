@@ -4,11 +4,8 @@ import java.util.*;
 
 public final class Brain {
     static final long ACCURACY = 2;
-    static final long LEARNING_SPEED = 2;
 
     private final List<Memory> mMemories = new ArrayList<>();
-
-    private long mMaxWeight = 1;
 
     public Brain() {
     }
@@ -20,13 +17,9 @@ public final class Brain {
     public Optional<Memory> get(Problem problem) {
         for(Memory memory: mMemories) {
             if(compareProblems(problem, memory.useCases())) {
-                memory.weight = mMaxWeight;
-                mMaxWeight++;
+                memory.weight++;
                 mMemories.sort(new WeightComparator());
-
-                // debug
                 IO.println(mMemories);
-
                 return Optional.of(memory);
             }
         }
@@ -36,7 +29,6 @@ public final class Brain {
 
     private boolean compareProblems(Problem toSolve, List<Problem> problems) {
         long count = 0;
-
         for(Problem p: problems) {
             for(String keyword: p.keywords) {
                 for(String keyw: toSolve.keywords) {
@@ -50,7 +42,6 @@ public final class Brain {
             }
             count = 0;
         }
-
         return false;
     }
 
@@ -58,13 +49,7 @@ public final class Brain {
         @Override
         @SuppressWarnings("all")
         public int compare(Memory memory, Memory t1) {
-            if(memory.weight-LEARNING_SPEED >= t1.weight) {
-                return -1;
-            } else if(memory.weight-LEARNING_SPEED <= t1.weight) {
-                return +1;
-            } else {
-                return 0;
-            }
+            return memory.weight >= t1.weight ? -1 : memory.weight <= t1.weight ? 1 : 0;
         }
     }
 }
