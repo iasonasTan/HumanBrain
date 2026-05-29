@@ -2,13 +2,15 @@ package ds.brain;
 
 import java.util.List;
 
-public abstract class Memory {
+public class Memory {
     protected long weight;
 
     protected String value;
+    protected List<Problem> useCases;
 
-    public Memory(String value) {
+    public Memory(String value, List<Problem> useCases) {
         weight = 0;
+        this.useCases = useCases;
         this.value = value;
     }
 
@@ -16,6 +18,4 @@ public abstract class Memory {
     public String toString() {
         return value+":"+weight;
     }
-
-    public abstract List<Problem> useCases();
 }

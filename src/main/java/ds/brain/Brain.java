@@ -3,20 +3,15 @@ package ds.brain;
 import java.util.*;
 
 public final class Brain {
-    static final long ACCURACY = 2;
-
     private final List<Memory> mMemories = new ArrayList<>();
-
-    public Brain() {
-    }
 
     public void learn(Memory memory) {
         mMemories.add(memory);
     }
 
-    public Optional<Memory> get(Problem problem) {
+    public Optional<Memory> get(Problem problem, long accuracy) {
         for(Memory memory: mMemories) {
-            if(compareProblems(problem, memory.useCases())) {
+            if(compareProblems(problem, memory.useCases, accuracy)) {
                 memory.weight++;
                 mMemories.sort(new WeightComparator());
                 IO.println(mMemories);
@@ -27,14 +22,14 @@ public final class Brain {
         return Optional.empty();
     }
 
-    private boolean compareProblems(Problem toSolve, List<Problem> problems) {
+    private boolean compareProblems(Problem toSolve, List<Problem> problems, long accuracy) {
         long count = 0;
         for(Problem p: problems) {
             for(String keyword: p.keywords) {
                 for(String keyw: toSolve.keywords) {
-                    if(keyw.contains(keyword) || keyword.contains(keyw)) {
+                    if(keyw.equals(keyword)) {
                         count++;
-                        if(count >= ACCURACY) {
+                        if(count >= accuracy) {
                             return true;
                         }
                     }
